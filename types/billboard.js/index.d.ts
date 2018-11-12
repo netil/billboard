@@ -4,23 +4,40 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// This definition is modified from the c3 DefinietelyTyped by:
+// This definition is modified from the c3 DefinietelyTyped created by:
 //                 Marc Climent <https://github.com/mcliment>
 //                 Gerin Jacob <https://github.com/gerinjacob>
 //                 Bernd Hacker <https://github.com/denyo>
 //                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
 //                 Tim Niemueller <https://github.com/timn>
 
-declare module 'billboard.js' {
-  import * as d3 from 'd3';
+declare module "billboard.js" {
+  import { Selection } from "d3-selection";
+  import { RGBColor } from "d3-color";
+  import "d3-time-format";
+  import "d3-array";
+  import "d3-transition";
+  import "d3-scale";
+  import "d3-brush";
+  import "d3-collection";
+  import "d3-dsv";
+  import "d3-drag";
+  import "d3-shape";
+  import "d3-interpolate";
+  import "d3-zoom";
+  import "d3-ease";
   export namespace bb {
-    export function generate(options: ChartConfiguration): ChartAPI;
-
+    export function generate(options: ChartConfiguration): Chart;
     export const version: string;
-    export const instance: ChartAPI[];
+    export const instance: Chart[];
   }
   export type PrimitiveArray = Array<string | boolean | number | null>;
-  export type FormatFunction = (v: any, id: string, i: number, j: number) => void;
+  export type FormatFunction = (
+    v: any,
+    id: string,
+    i: number,
+    j: number
+  ) => void;
 
   export interface TargetIds {
     ids: ArrayOrString;
@@ -36,7 +53,7 @@ declare module 'billboard.js' {
      * Note: When chart is not binded, billboard starts observing if chart.element is binded by MutationObserver. In this case, polyfill is required in IE9 and IE10 becuase they do not support
      * MutationObserver. On the other hand, if chart always will be binded, polyfill will not be required because MutationObserver will never be called.
      */
-    bindto?: string | HTMLElement | d3.Selection<any, any, any, any> | null;
+    bindto?: string | HTMLElement | Selection<any, any, any, any> | null;
     size?: {
       /**
        * The desired width of the chart element.
@@ -152,15 +169,15 @@ declare module 'billboard.js' {
       width?:
         | number
         | {
-        /**
-         * Set the width of each bar by ratio
-         */
-        ratio: number;
-        /**
-         * Set max width of each bar
-         */
-        max?: number;
-      };
+            /**
+             * Set the width of each bar by ratio
+             */
+            ratio: number;
+            /**
+             * Set max width of each bar
+             */
+            max?: number;
+          };
       /**
        * Set if min or max value will be 0 on bar chart.
        */
@@ -266,16 +283,16 @@ declare module 'billboard.js' {
          * Set custom spline interpolation
          */
         type?:
-          | 'linear'
-          | 'linear-closed'
-          | 'basis'
-          | 'basis-open'
-          | 'basis-closed'
-          | 'bundle'
-          | 'cardinal'
-          | 'cardinal-open'
-          | 'cardinal-closed'
-          | 'monotone';
+          | "linear"
+          | "linear-closed"
+          | "basis"
+          | "basis-open"
+          | "basis-closed"
+          | "bundle"
+          | "cardinal"
+          | "cardinal-open"
+          | "cardinal-closed"
+          | "monotone";
       };
     };
 
@@ -390,7 +407,10 @@ declare module 'billboard.js' {
      * - j is the sub index of the data point where the label is shown.
      * Formatter function can be defined for each data by specifying as an object and D3 formatter function can be set (e.g. d3.format('$'))
      */
-    labels?: boolean | { format: FormatFunction } | { format: { [key: string]: FormatFunction } };
+    labels?:
+      | boolean
+      | { format: FormatFunction }
+      | { format: { [key: string]: FormatFunction } };
     /**
      * Define the order of the data.
      * This option changes the order of stacking the data and pieces of pie/donut. If null specified, it will be the order the data loaded. If function specified, it will be used to sort the data
@@ -409,7 +429,9 @@ declare module 'billboard.js' {
     /**
      * Set color for each data.
      */
-    colors?: { [key: string]: string | d3.RGBColor | ((d: any) => string | d3.RGBColor) };
+    colors?: {
+      [key: string]: string | RGBColor | ((d: any) => string | RGBColor);
+    };
     /**
      * Hide each data when the chart appears.
      * If true specified, all of data will be hidden. If multiple ids specified as an array, those will be hidden.
@@ -433,7 +455,7 @@ declare module 'billboard.js' {
      * This option should a function and the specified function receives color (e.g. '#ff0000') and d that has data parameters like id, value, index, etc. And it must return a string that
      * represents color (e.g. '#00ff00').
      */
-    color?(color: string, d: any): string | d3.RGBColor;
+    color?(color: string, d: any): string | RGBColor;
 
     /**
      * Set a callback for click event on each data point.
@@ -834,7 +856,7 @@ declare module 'billboard.js' {
     /**
      * Set interaction type for zooming
      */
-    type?: 'scroll' | 'drag';
+    type?: "scroll" | "drag";
     /**
      * Enable to rescale after zooming. If true set, y domain will be updated according to the zoomed region.
      */
@@ -891,7 +913,7 @@ declare module 'billboard.js' {
     };
   }
 
-  export interface ChartAPI {
+  export interface Chart {
     xgrids: GridOperations;
     ygrids: GridOperations;
 
@@ -939,7 +961,9 @@ declare module 'billboard.js' {
        * Get and set colors of the data loaded in the chart.
        * @param colors If this argument is given, the colors of data will be updated. If not given, the current colors will be returned. The format of this argument is the same as data.colors.
        */
-      colors(colors?: { [key: string]: string | d3.RGBColor }): { [key: string]: string };
+      colors(colors?: {
+        [key: string]: string | RGBColor;
+      }): { [key: string]: string };
       /**
        * Get and set axes of the data loaded in the chart.
        * @param axes If this argument is given, the axes of data will be updated. If not given, the current axes will be returned. The format of this argument is the same as data.axes.
@@ -957,12 +981,16 @@ declare module 'billboard.js' {
        * Get and set axis min value.
        * @param min If min is given, specified axis' min value will be updated. If no argument is given, the current min values for each axis will be returned.
        */
-      min(min?: number | { [key: string]: number }): number | { [key: string]: number };
+      min(
+        min?: number | { [key: string]: number }
+      ): number | { [key: string]: number };
       /**
        * Get and set axis max value.
        * @param max If max is given, specified axis' max value will be updated. If no argument is given, the current max values for each axis will be returned.
        */
-      max(max?: number | { [key: string]: number }): number | { [key: string]: number };
+      max(
+        max?: number | { [key: string]: number }
+      ): number | { [key: string]: number };
       /**
        * Get and set axis min and max value.
        * @param range If range is given, specified axis' min and max value will be updated. If no argument is given, the current min and max values for each axis will be returned.
@@ -970,7 +998,10 @@ declare module 'billboard.js' {
       range(range?: {
         min?: number | { [key: string]: number };
         max?: number | { [key: string]: number };
-      }): { min: number | { [key: string]: number }; max: number | { [key: string]: number } };
+      }): {
+        min: number | { [key: string]: number };
+        max: number | { [key: string]: number };
+      };
     };
 
     legend: {
@@ -1066,7 +1097,7 @@ declare module 'billboard.js' {
       classes?: { [key: string]: string };
       categories?: string[];
       axes?: { [key: string]: string };
-      colors?: { [key: string]: string | d3.RGBColor };
+      colors?: { [key: string]: string | RGBColor };
       type?: string;
       types?: { [key: string]: string };
       unload?: boolean | ArrayOrString;
@@ -1165,7 +1196,9 @@ declare module 'billboard.js' {
      * Get and set x values for the chart.
      * @param x If x is given, x values of every target will be updated. If no argument is given, current x values will be returned as an Object whose keys are the target ids.
      */
-    xs(xs?: { [key: string]: PrimitiveArray }): { [key: string]: PrimitiveArray };
+    xs(xs?: {
+      [key: string]: PrimitiveArray;
+    }): { [key: string]: PrimitiveArray };
 
     /**
      * Unzoom to the original domain.
@@ -1209,6 +1242,4 @@ declare module 'billboard.js' {
      */
     remove(args?: { class?: string; value?: number | string }): void;
   }
-
-
 }

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit} from '@angular/core';
-import {bb, ChartAPI, ChartConfiguration, Data} from 'billboard.js';
+import {bb, Chart, ChartConfiguration, Data} from 'billboard.js';
 
 @Component({
   selector: 'app-bb-chart',
@@ -11,7 +11,7 @@ import {bb, ChartAPI, ChartConfiguration, Data} from 'billboard.js';
 export class BbChartComponent implements OnInit, OnChanges {
   @Input() options: ChartConfiguration = <any>{};
   @Input() data: Data = {};
-  chart: ChartAPI;
+  chart: Chart;
 
   constructor(private _elementRef: ElementRef) {
   }
