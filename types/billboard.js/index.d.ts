@@ -19,7 +19,7 @@ declare module "billboard.js" {
     export const version: string;
     export const instance: Chart[];
   }
-  export type PrimitiveArray = Array<string | boolean | number | null>;
+  export type PrimitiveArray = Array<string | boolean | number | Date | null>;
   export type FormatFunction = (
     v: any,
     id: string,
