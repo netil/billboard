@@ -4,14 +4,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+// This definition is modified from the c3 DefinietelyTyped by:
+//                 Marc Climent <https://github.com/mcliment>
+//                 Gerin Jacob <https://github.com/gerinjacob>
+//                 Bernd Hacker <https://github.com/denyo>
+//                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
+//                 Tim Niemueller <https://github.com/timn>
+
 declare module 'billboard.js' {
   import * as d3 from 'd3';
   export namespace bb {
     export function generate(options: ChartConfiguration): ChartAPI;
+
     export const version: string;
     export const instance: ChartAPI[];
   }
-  export type PrimitiveArray = Array<string | boolean | number | null >;
+  export type PrimitiveArray = Array<string | boolean | number | null>;
   export type FormatFunction = (v: any, id: string, i: number, j: number) => void;
 
   export interface TargetIds {
@@ -144,15 +152,15 @@ declare module 'billboard.js' {
       width?:
         | number
         | {
-            /**
-             * Set the width of each bar by ratio
-             */
-            ratio: number;
-            /**
-             * Set max width of each bar
-             */
-            max?: number;
-          };
+        /**
+         * Set the width of each bar by ratio
+         */
+        ratio: number;
+        /**
+         * Set max width of each bar
+         */
+        max?: number;
+      };
       /**
        * Set if min or max value will be 0 on bar chart.
        */
@@ -270,6 +278,7 @@ declare module 'billboard.js' {
           | 'monotone';
       };
     };
+
     /**
      * Set a callback to execute when the chart is initialized.
      */
@@ -425,18 +434,21 @@ declare module 'billboard.js' {
      * represents color (e.g. '#00ff00').
      */
     color?(color: string, d: any): string | d3.RGBColor;
+
     /**
      * Set a callback for click event on each data point.
      * This callback will be called when each data point clicked and will receive d and element as the arguments.
      * - d is the data clicked and element is the element clicked. In this callback, this will be the Chart object.
      */
     onclick?(d: any, element: any): void;
+
     /**
      * Set a callback for mouseover event on each data point.
      * This callback will be called when mouse cursor moves onto each data point and will receive d as the argument.
      * - d is the data where mouse cursor moves onto. In this callback, this will be the Chart object.
      */
     onmouseover?(d: any, element?: any): void;
+
     /**
      * Set a callback for mouseout event on each data point.
      * This callback will be called when mouse cursor moves out each data point and will receive d as the argument.
@@ -623,6 +635,7 @@ declare module 'billboard.js' {
      * The position of the ticks will be calculated precisely, so the values on the ticks will not be rounded nicely. In the case, axis.y.tick.format or axis.y.tick.values will be helpful.
      */
     count?: number;
+
     /**
      * Set formatter for y axis tick text.
      * This option accepts d3.format object as well as a function you define.
@@ -771,6 +784,7 @@ declare module 'billboard.js' {
      * Available Values: desc, asc, any[], function (data1, data2) { ... }, null
      */
     order?: string | any[] | ((data1: any, data2: any) => number) | null;
+
     /**
      * Set custom position for the tooltip. This option can be used to modify the tooltip position by returning object that has top and left.
      */
@@ -780,6 +794,7 @@ declare module 'billboard.js' {
       height: number,
       element: any
     ): { top: number; left: number };
+
     /**
      * Set custom HTML for the tooltip.
      * Specified function receives data, defaultTitleFormat, defaultValueFormat and color of the data point to show. If tooltip.grouped is true, data includes multiple data points.
@@ -803,6 +818,7 @@ declare module 'billboard.js' {
        */
       height: number;
     };
+
     /**
      * Set callback for brush event.
      * Specified function receives the current zoomed x domain.
@@ -827,14 +843,17 @@ declare module 'billboard.js' {
      * Change zoom extent.
      */
     extent?: [number, number];
+
     /**
      * Set callback that is called when the chart is zooming. Specified function receives the zoomed domain.
      */
     onzoom?(domain: any): void;
+
     /**
      * Set callback that is called when zooming starts. Specified function receives the zoom event.
      */
     onzoomstart?(event: Event): void;
+
     /**
      * Set callback that is called when zooming ends. Specified function receives the zoomed domain.
      */
@@ -988,11 +1007,13 @@ declare module 'billboard.js' {
      * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be highlighted.
      */
     focus(targetIds?: ArrayOrString): void;
+
     /**
      * This API fades out specified targets and reverts the others.
      * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be faded out.
      */
     defocus(targetIds?: ArrayOrString): void;
+
     /**
      * This API reverts specified targets.
      * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be reverted.
@@ -1005,18 +1026,21 @@ declare module 'billboard.js' {
      * If withLegend is set true, legend will be shown together with the specified data.
      */
     show(targetIds?: ArrayOrString, options?: { withLegend: boolean }): void;
+
     /**
      * This API hides specified targets.
      * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be hidden.
      * If withLegend is set true, legend will be hidden together with the specified data.
      */
     hide(targetIds?: ArrayOrString, options?: { withLegend: boolean }): void;
+
     /**
      * This API toggles (shows or hides) specified targets.
      * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be toggles.
      * If withLegend is set true, legend will be toggled together with the specified data.
      */
     toggle(targetIds?: ArrayOrString, options?: { withLegend: boolean }): void;
+
     /**
      * Load data to the chart.
      * If url, json, rows and columns given, the data will be loaded. If data that has the same target id is given, the chart will be updated. Otherwise, new target will be added.
@@ -1048,6 +1072,7 @@ declare module 'billboard.js' {
       unload?: boolean | ArrayOrString;
       done?(): any;
     }): void;
+
     /**
      * Unload data to the chart.
      * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be toggles.
@@ -1057,6 +1082,7 @@ declare module 'billboard.js' {
      * NOTE: done will be called after data loaded, but it's not after rendering. It's because rendering will finish after some transition and there is some time lag between loading and rendering.
      */
     unload(targetIds?: TargetIds, done?: () => any): any;
+
     /**
      * Flow data to the chart. By this API, you can append new data points to the chart.
      * If json, rows and columns given, the data will be loaded. If data that has the same target id is given, the chart will be appended. Otherwise, new target will be added. One of these is
@@ -1076,6 +1102,7 @@ declare module 'billboard.js' {
       duration?: number;
       done?(): any;
     }): void;
+
     /**
      * Change data point state to selected. By this API, you can select data points. To use this API, data.selection.enabled needs to be set true.
      * @param ids Specify target ids to be selected. If this argument is not given, all targets will be the candidate.
@@ -1083,23 +1110,27 @@ declare module 'billboard.js' {
      * @param resetOthers If this argument is set true, the data points that are not specified by ids, indices will be unselected.
      */
     select(ids?: string[], indices?: number[], resetOthers?: boolean): void;
+
     /**
      * Change data point state to unselected. By this API, you can unselect data points. To use this API, data.selection.enabled needs to be set true.
      * @param ids Specify target ids to be unselected. If this argument is not given, all targets will be the candidate.
      * @param indices Specify indices to be unselected. If this argument is not given, all data points will be the candidate.
      */
     unselect(ids?: string[], indices?: number[]): void;
+
     /**
      * Get selected data points. By this API, you can get selected data points information. To use this API, data.selection.enabled needs to be set true.
      * @param targetId You can filter the result by giving target id that you want to get. If not given, all of data points will be returned.
      */
     selected(targetId?: string): Data;
+
     /**
      * Change the type of the chart.
      * @param type Specify the type to be transformed. The types listed in data.type can be used.
      * @param targetIds Specify targets to be transformed. If not given, all targets will be the candidate.
      */
     transform(type: string, targetIds?: ArrayOrString): void;
+
     /**
      * Update groups for the targets.
      * @param groups This argument needs to be an Array that includes one or more Array that includes target ids to be grouped.
@@ -1164,11 +1195,13 @@ declare module 'billboard.js' {
      * @param grids X/Y grid lines will be replaced with this argument. The format of this argument is the same as grid.x.lines or grid.y.lines.
      */
     (grids: any[]): void;
+
     /**
      * Add x/y grid lines. This API adds new x/y grid lines instead of replacing like xgrids.
      * @param grids New x/y grid lines will be added. The format of this argument is the same as grid.x.lines or grid.y.lines and it's possible to give an Object if only one line will be added.
      */
     add(grids: any[] | {}): void;
+
     /**
      * Remove x/y grid lines. This API removes x/y grid lines.
      * @param args This argument should include value or class. If value is given, the x/y grid lines that have specified x/y value will be removed. If class is given, the x/y grid lines that
